@@ -1,0 +1,34 @@
+name: Generate Pac-Man Contribution Graph
+
+on:
+  schedule:
+    # Runs once a day at midnight UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Allows manual trigger
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Generate Pac-Man Contribution Graph
+        uses: maurodesouza/github-contribution-grid-snake@v2.8.0
+        with:
+          github_user_name: funky473
+          outputs: |
+            output/pacman-contribution-graph.svg
+            output/pacman-contribution-graph-dark.svg
+
+      - name: Push Generated Files
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: actions@github.com
+          message: "chore: update Pac-Man contribution graph"
+          add: "output/*"
