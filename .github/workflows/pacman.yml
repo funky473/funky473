@@ -20,9 +20,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Generate Pac-Man Contribution Graph
-        uses: maurodesouza/github-contribution-grid-snake@v2.8.0
+        # CORRECTED ACTION: Using the maintained Platane/snk action
+        uses: Platane/snk@v3 
         with:
           github_user_name: funky473
+          # OPTIONAL: Recommended to use the GITHUB_TOKEN for reliability
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
           outputs: |
             output/pacman-contribution-graph.svg
             output/pacman-contribution-graph-dark.svg
